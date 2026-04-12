@@ -63,7 +63,8 @@
   .chip { font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 100px; background: var(--warm); color: var(--muted); }
   .chip.contact { background: #e8f0e9; color: var(--moss); }
   .chip.loc { background: #fff8ee; color: #9a6220; }
-  .chip.web { background: #e3f2fd; color: #1565c0; }
+  .chip.web { background: #e3f2fd; color: #1565c0; text-decoration: none; }
+  a.chip.web:hover { background: #bbdefb; }
   .btn-claim { position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid #ddd6c8; background: var(--warm); color: var(--muted); font-size: 14px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; padding: 0; line-height: 1; }
   .btn-claim:hover { background: #e8f0e9; border-color: var(--sage); transform: scale(1.15); }
   .btn-claim.claimed { background: #e8f0e9; border-color: var(--sage); }
@@ -180,6 +181,10 @@
     <div class="form-group">
       <label>Hemsida</label>
       <input type="url" id="modalWeb" placeholder="https://www.foretag.se">
+    </div>
+    <div class="form-group">
+      <label>Besöksadress</label>
+      <input type="text" id="modalAddr" placeholder="Storgatan 1, Höör">
     </div>
     <div class="form-group">
       <label>Fler kategorier — välj alla som stämmer</label>
@@ -300,17 +305,20 @@ function render() {
       const desc = extra?.desc || '';
       const contact = extra?.contact || '';
       const web = extra?.web || '';
-      const claimed = !!(desc||contact||web);
+      const addr = extra?.addr || '';
+      const claimed = !!(desc||contact||web||addr);
       const extraCats = (extra?.cats || []).filter(ec => ec !== c.cat);
+      const webUrl = web ? (web.startsWith('http') ? web : 'https://' + web) : '';
+      const displayAddr = addr || c.street || '';
       return `<div class="card">
         <div class="card-name">${esc(c.name)}</div>
         ${desc ? `<div class="card-tagline">${esc(desc)}</div>` : ''}
         <div class="card-orgnr">Org.nr ${esc(c.id)}</div>
         <div class="card-meta">
           <span class="chip loc">📍 ${esc(c.city||'Höör')}</span>
-          ${c.street ? `<span class="chip">${esc(c.street)}</span>` : ''}
+          ${displayAddr ? `<span class="chip">🏠 ${esc(displayAddr)}</span>` : ''}
           ${contact ? `<span class="chip contact">${esc(contact)}</span>` : ''}
-          ${web ? `<span class="chip web">🌐 ${esc(web)}</span>` : ''}
+          ${webUrl ? `<a href="${esc(webUrl)}" target="_blank" rel="noopener" class="chip web">🌐 ${esc(web)}</a>` : ''}
           ${extraCats.map(ec=>`<span class="chip" style="background:${CAT_INFO[ec]?.bg||'#f5f5f5'}">${CAT_INFO[ec]?.icon||'📌'} ${esc(ec)}</span>`).join('')}
         </div>
         <button class="btn-claim${claimed?' claimed':''}" data-id="${esc(c.id)}" data-name="${esc(c.name)}" title="${claimed?'Uppdatera info':'Detta är mitt företag'}">${claimed?'✏️':'🏷️'}</button>
@@ -347,6 +355,7 @@ function openModal(id, name) {
   updateDescCount();
   document.getElementById('modalContact').value = extra.contact || '';
   document.getElementById('modalWeb').value = extra.web || '';
+  document.getElementById('modalAddr').value = extra.addr || '';
   document.getElementById('modalCats').innerHTML = Object.keys(CAT_INFO).map(cat => {
     const isOrig = cat === origCat;
     const checked = (isOrig || savedCats.includes(cat)) ? 'checked' : '';
@@ -371,6 +380,7 @@ document.getElementById('modalSave').addEventListener('click', () => {
     desc: document.getElementById('modalDesc').value.trim(),
     contact: document.getElementById('modalContact').value.trim(),
     web: document.getElementById('modalWeb').value.trim(),
+    addr: document.getElementById('modalAddr').value.trim(),
     cats,
   });
   closeModal(); render();
