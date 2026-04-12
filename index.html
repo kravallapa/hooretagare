@@ -99,6 +99,8 @@
   .form-group input, .form-group textarea { width: 100%; padding: 11px 14px; border: 1.5px solid #ddd6c8; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--cream); outline: none; transition: border-color 0.18s; }
   .form-group input:focus, .form-group textarea:focus { border-color: var(--moss); }
   .form-group textarea { resize: vertical; min-height: 80px; }
+  .char-count { font-size: 11px; color: var(--muted); text-align: right; margin-top: 4px; }
+  .char-count.near-limit { color: #c0392b; }
   .modal-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 24px; }
   .btn-cancel { padding: 11px 22px; background: var(--warm); border: none; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; color: var(--muted); transition: background 0.15s; }
   .btn-cancel:hover { background: #ddd6c8; }
@@ -179,7 +181,8 @@
     <input type="hidden" id="modalId">
     <div class="form-group">
       <label>Beskrivning</label>
-      <textarea id="modalDesc" placeholder="Berätta kort om er verksamhet..."></textarea>
+      <textarea id="modalDesc" placeholder="Berätta kort om er verksamhet..." maxlength="120"></textarea>
+      <div class="char-count" id="descCount">0 / 120</div>
     </div>
     <div class="form-group">
       <label>Telefon / E-post</label>
@@ -228,6 +231,16 @@ let activeLoc = 'all', activeCat = 'all';
 function getExtra(id) { try { return JSON.parse(localStorage.getItem('co_' + id) || 'null'); } catch(e) { return null; } }
 function saveExtra(id, data) { localStorage.setItem('co_' + id, JSON.stringify(data)); }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function updateDescCount() {
+  const el = document.getElementById('modalDesc');
+  const cnt = document.getElementById('descCount');
+  const len = el.value.length;
+  cnt.textContent = len + ' / 120';
+  cnt.classList.toggle('near-limit', len >= 100);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('modalDesc').addEventListener('input', updateDescCount);
+});
 
 const LOCS = [...new Set(ALL_COMPANIES.map(c => c.city).filter(Boolean))].sort();
 const CATS = [...new Set(ALL_COMPANIES.map(c => c.cat))].sort();
@@ -340,7 +353,9 @@ function openModal(id, name) {
   const savedCats = extra.cats || [];
   document.getElementById('modalId').value = id;
   document.getElementById('modalTitle').textContent = name;
-  document.getElementById('modalDesc').value = extra.desc || '';
+  const descEl = document.getElementById('modalDesc');
+  descEl.value = extra.desc || '';
+  updateDescCount();
   document.getElementById('modalContact').value = extra.contact || '';
   document.getElementById('modalWeb').value = extra.web || '';
   document.getElementById('modalCats').innerHTML = Object.keys(CAT_INFO).map(cat => {
