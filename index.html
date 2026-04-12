@@ -144,19 +144,6 @@
     </div>
   </div>
 
-  <div class="info-banner">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-    <span>
-      Informationen hämtas från <a href="https://www.bolagsverket.se/tjanster/apier-och-oppna-data/oppna-data" target="_blank"><strong>Bolagsverkets öppna data</strong></a>
-      och visar aktiva företag i Höörs kommuns postnummerområden.
-      Sidan är skapad <strong>ideellt</strong> av <a href="https://kravallapa.se" target="_blank"><strong>Kravallapa AB</strong></a> med hjälp av AI — utan kommersiellt syfte, för bygdens skull.
-      Äger du ett av företagen? Klicka på <strong>🏷️ Detta är mitt företag</strong> för att lägga till kontaktuppgifter.
-    </span>
-  </div>
-
-  <div id="businessList"></div>
-  <div id="no-results">Inga företag hittades. Prova ett annat sökord eller filter.</div>
-
   <div class="add-section">
     <div>
       <h3>Är du företagare i kommunen?</h3>
@@ -164,11 +151,24 @@
     </div>
     <button class="btn-primary" onclick="document.getElementById('searchInput').focus(); document.getElementById('searchInput').scrollIntoView({behavior:'smooth'})">🔍 Hitta ditt företag</button>
   </div>
+
+  <div class="info-banner">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>
+      Äger du ett av företagen? Klicka på <strong>🏷️ Detta är mitt företag</strong> för att lägga till kontaktuppgifter.
+    </span>
+  </div>
+
+  <div id="businessList"></div>
+  <div id="no-results">Inga företag hittades. Prova ett annat sökord eller filter.</div>
 </main>
 
 <footer>
   <strong>Företag i Höörs kommun</strong> — en gratis tjänst för bygden<br>
   Höör · Tjörnarp · Hallaröd · Löberöd · Bosjökloster · Gudmuntorp · Munkarp · Norra Rörum<br>
+  <br>
+  Informationen hämtas från <a href="https://www.bolagsverket.se/tjanster/apier-och-oppna-data/oppna-data" target="_blank">Bolagsverkets öppna data</a> och visar aktiva företag i Höörs kommuns postnummerområden. Sidan är skapad ideellt av <a href="https://kravallapa.se" target="_blank">Kravallapa AB</a> med hjälp av AI — utan kommersiellt syfte, för bygdens skull.<br>
+  <br>
   <span style="opacity:0.6;font-size:11px">Vill ditt företag tas bort? Klicka på "🏷️ Detta är mitt företag" och välj "Skicka borttagningsförfrågan".</span>
 </footer>
 
