@@ -18,26 +18,29 @@
 
   .hero { background: var(--forest); padding: 0 24px; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(104,145,110,0.25) 0%, transparent 70%); pointer-events: none; }
-  .hero-inner { max-width: 900px; margin: 0 auto; padding: 72px 0 60px; position: relative; }
-  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); margin-bottom: 20px; }
-  h1 { font-family: 'Playfair Display', serif; font-size: clamp(38px, 7vw, 72px); font-weight: 900; color: var(--cream); line-height: 1.05; margin-bottom: 20px; }
+  .hero-inner { max-width: 900px; margin: 0 auto; padding: 44px 0 36px; position: relative; display: grid; grid-template-columns: 1fr auto; gap: 24px 48px; align-items: center; }
+  .hero-text { grid-column: 1; }
+  .hero-right { grid-column: 2; display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
+  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); margin-bottom: 12px; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: var(--cream); line-height: 1.05; margin-bottom: 12px; }
   h1 em { color: var(--gold); font-style: italic; }
-  .hero-sub { font-size: 16px; color: #a8c2ae; max-width: 480px; line-height: 1.65; margin-bottom: 36px; }
-  .search-bar { display: flex; max-width: 520px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-  .search-bar input { flex: 1; padding: 16px 20px; font-family: 'DM Sans', sans-serif; font-size: 15px; border: none; outline: none; background: var(--white); color: var(--text); }
+  .hero-sub { font-size: 15px; color: #a8c2ae; max-width: 420px; line-height: 1.6; }
+  .search-bar { display: flex; width: 340px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+  .search-bar input { flex: 1; padding: 14px 16px; font-family: 'DM Sans', sans-serif; font-size: 14px; border: none; outline: none; background: var(--white); color: var(--text); }
   .search-bar input::placeholder { color: #aaa; }
-  .search-bar button { padding: 16px 24px; background: var(--gold); color: var(--white); border: none; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+  .search-bar button { padding: 14px 20px; background: var(--gold); color: var(--white); border: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
   .search-bar button:hover { background: #b07d30; }
-  .hero-stats { display: flex; gap: 36px; margin-top: 40px; flex-wrap: wrap; }
+  .hero-stats { display: flex; gap: 28px; flex-wrap: wrap; }
   .stat { display: flex; flex-direction: column; }
-  .stat-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--cream); line-height: 1; }
-  .stat-label { font-size: 12px; color: var(--sage); margin-top: 4px; letter-spacing: 0.05em; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--cream); line-height: 1; }
+  .stat-label { font-size: 11px; color: var(--sage); margin-top: 3px; letter-spacing: 0.05em; }
 
-  .main { max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
-  .filter-row { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
+  .main { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
+  .filter-row { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
   .filter-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-  .pill-strip { display: flex; gap: 8px; flex-wrap: wrap; }
-  .pill { padding: 7px 16px; border-radius: 100px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid #ddd6c8; background: var(--warm); color: var(--muted); transition: all 0.18s; user-select: none; }
+  .pill-strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .pill-strip::-webkit-scrollbar { display: none; }
+  .pill { padding: 7px 16px; border-radius: 100px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid #ddd6c8; background: var(--warm); color: var(--muted); transition: all 0.18s; user-select: none; white-space: nowrap; flex-shrink: 0; }
   .pill:hover { border-color: var(--moss); color: var(--moss); }
   .pill.active { background: var(--moss); color: var(--cream); border-color: var(--moss); }
   .loc-pill.active { background: var(--forest); border-color: var(--forest); }
@@ -75,9 +78,9 @@
   .btn-remove { background: none; border: none; color: #b94040; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0; text-decoration: underline; text-underline-offset: 2px; }
   .btn-remove:hover { color: #8b2222; }
 
-  .add-section { background: var(--forest); border-radius: 20px; padding: 32px 36px; margin-bottom: 20px; }
-  .add-section h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--cream); margin-bottom: 8px; }
-  .add-section p { font-size: 14px; color: #a8c2ae; max-width: 400px; line-height: 1.6; }
+  .add-section { background: var(--forest); border-radius: 12px; padding: 14px 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .add-section h3 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--cream); white-space: nowrap; }
+  .add-section p { font-size: 13px; color: #a8c2ae; line-height: 1.4; }
   .btn-primary { padding: 14px 28px; background: var(--gold); color: var(--white); border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s; white-space: nowrap; flex-shrink: 0; }
   .btn-primary:hover { background: #b07d30; }
 
@@ -102,34 +105,37 @@
   footer { background: var(--forest); color: #a8c2ae; text-align: center; padding: 28px 20px; font-size: 13px; line-height: 1.8; }
   footer strong { color: var(--cream); }
   footer a { color: var(--sage); }
-  @media (max-width: 600px) { .hero-inner { padding: 48px 0 40px; } .add-section { padding: 22px 20px; } .modal { padding: 24px; } }
+  @media (max-width: 700px) { .hero-inner { grid-template-columns: 1fr; padding: 36px 0 28px; } .hero-right { align-items: stretch; } .search-bar { width: 100%; } .add-section { flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px 18px; } .modal { padding: 24px; } }
 </style>
 </head>
 <body>
 
 <header class="hero">
   <div class="hero-inner">
-    <p class="eyebrow">📍 Höörs kommun, Skåne</p>
-    <h1>Köp <em>lokalt</em><br>stöd varandra</h1>
-    <p class="hero-sub">Hitta duktiga företagare i hela Höörs kommun — från Tjörnarp i norr till Bosjökloster i söder. Handla lokalt och bygg en starkare bygd.</p>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Sök företag, tjänst eller ort...">
-      <button id="searchBtn">🔍 Sök</button>
+    <div class="hero-text">
+      <p class="eyebrow">📍 Höörs kommun, Skåne</p>
+      <h1>Köp <em>lokalt</em><br>stöd varandra</h1>
+      <p class="hero-sub">Hitta duktiga företagare i hela Höörs kommun — från Tjörnarp i norr till Bosjökloster i söder.</p>
     </div>
-    <div class="hero-stats">
-      <div class="stat"><span class="stat-num" id="totalCount">0</span><span class="stat-label">lokala företag</span></div>
-      <div class="stat"><span class="stat-num" id="catCount">0</span><span class="stat-label">kategorier</span></div>
-      <div class="stat"><span class="stat-num" id="locCount">0</span><span class="stat-label">orter</span></div>
+    <div class="hero-right">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Sök företag, tjänst eller ort...">
+        <button id="searchBtn">🔍 Sök</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num" id="totalCount">0</span><span class="stat-label">lokala företag</span></div>
+        <div class="stat"><span class="stat-num" id="catCount">0</span><span class="stat-label">kategorier</span></div>
+        <div class="stat"><span class="stat-num" id="locCount">0</span><span class="stat-label">orter</span></div>
+      </div>
     </div>
   </div>
 </header>
 
 <main class="main">
   <div class="add-section">
-    <div>
-      <h3>Är du företagare i kommunen?</h3>
-      <p>Klicka på "Detta är mitt företag" på ditt kort för att lägga till beskrivning, kontakt och hemsida. Sparas direkt i din webbläsare.</p>
-    </div>
+    <span style="font-size:16px">🏷️</span>
+    <h3>Är du företagare i kommunen?</h3>
+    <p>Klicka på <strong style="color:var(--cream)">"Detta är mitt företag"</strong> på ditt kort för att lägga till kontaktuppgifter.</p>
   </div>
 
   <div class="filter-row">
