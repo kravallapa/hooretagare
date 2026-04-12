@@ -38,9 +38,8 @@
   .main { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
   .filter-row { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
   .filter-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-  .pill-strip { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
-  .pill-strip::-webkit-scrollbar { display: none; }
-  .pill { padding: 7px 16px; border-radius: 100px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid #ddd6c8; background: var(--warm); color: var(--muted); transition: all 0.18s; user-select: none; white-space: nowrap; flex-shrink: 0; }
+  .pill-strip { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill { padding: 7px 16px; border-radius: 100px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid #ddd6c8; background: var(--warm); color: var(--muted); transition: all 0.18s; user-select: none; }
   .pill:hover { border-color: var(--moss); color: var(--moss); }
   .pill.active { background: var(--moss); color: var(--cream); border-color: var(--moss); }
   .loc-pill.active { background: var(--forest); border-color: var(--forest); }
