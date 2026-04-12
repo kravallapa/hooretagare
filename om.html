@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om Hööretagare — varför vi finns</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --forest: #1a3a2a; --moss: #2d5a3d; --sage: #6b8f71;
+    --cream: #f5f0e8; --warm: #ede8de; --gold: #c8923c;
+    --text: #1c2b22; --muted: #6b7c6e; --white: #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+  /* NAV */
+  .topnav { background: var(--forest); padding: 0 24px; }
+  .topnav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 52px; }
+  .nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--cream); text-decoration: none; font-weight: 700; letter-spacing: -0.02em; }
+  .nav-logo em { color: var(--gold); font-style: italic; }
+  .nav-back { font-size: 13px; color: var(--sage); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
+  .nav-back:hover { color: var(--cream); }
+  .nav-back svg { width: 14px; height: 14px; stroke: currentColor; flex-shrink: 0; }
+
+  /* HERO */
+  .hero { background: var(--forest); padding: 0 24px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 60%, rgba(104,145,110,0.2) 0%, transparent 65%); pointer-events: none; }
+  .hero-inner { max-width: 700px; margin: 0 auto; padding: 72px 0 64px; position: relative; }
+  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); margin-bottom: 20px; }
+  h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 6vw, 58px); font-weight: 900; color: var(--cream); line-height: 1.08; margin-bottom: 24px; }
+  h1 em { color: var(--gold); font-style: italic; }
+  .hero-lead { font-size: 17px; color: #a8c2ae; max-width: 520px; line-height: 1.7; }
+
+  /* CONTENT */
+  .content { max-width: 700px; margin: 0 auto; padding: 64px 24px 100px; }
+
+  .section { margin-bottom: 56px; }
+  .section h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--forest); margin-bottom: 16px; line-height: 1.2; }
+  .section p { font-size: 16px; line-height: 1.8; color: var(--text); margin-bottom: 16px; }
+  .section p:last-child { margin-bottom: 0; }
+  .section p a { color: var(--moss); text-decoration: underline; text-underline-offset: 3px; }
+
+  .pull-quote { background: var(--forest); border-radius: 16px; padding: 32px 36px; margin: 40px 0; }
+  .pull-quote p { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; color: var(--cream); line-height: 1.5; margin: 0; }
+  .pull-quote p em { color: var(--gold); font-style: normal; }
+
+  .values { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 28px; }
+  .value-card { background: var(--white); border: 1.5px solid #e8e2d8; border-radius: 14px; padding: 22px; }
+  .value-icon { font-size: 24px; margin-bottom: 10px; }
+  .value-card h3 { font-size: 15px; font-weight: 500; color: var(--forest); margin-bottom: 6px; }
+  .value-card p { font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0; }
+
+  .divider { border: none; border-top: 1.5px solid #ddd6c8; margin: 56px 0; }
+
+  .cta-box { background: var(--warm); border-radius: 16px; padding: 36px; text-align: center; }
+  .cta-box h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--forest); margin-bottom: 12px; }
+  .cta-box p { font-size: 15px; color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+  .btn { display: inline-block; padding: 13px 28px; background: var(--moss); color: var(--cream); border-radius: 10px; text-decoration: none; font-size: 15px; font-weight: 500; transition: background 0.2s; }
+  .btn:hover { background: var(--forest); }
+
+  footer { background: var(--forest); color: #a8c2ae; text-align: center; padding: 28px 20px; font-size: 13px; line-height: 1.8; }
+  footer a { color: var(--sage); }
+
+  @media (max-width: 600px) { .hero-inner { padding: 48px 0 44px; } .pull-quote { padding: 24px; } .pull-quote p { font-size: 18px; } }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="/" class="nav-logo">Höör<em>etagare</em></a>
+    <a href="/" class="nav-back">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Tillbaka till listan
+    </a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">🌿 Höör · Skåne</p>
+    <h1>Bygden är <em>starkare</em><br>än vi tror</h1>
+    <p class="hero-lead">Hööretagare är ett litet projekt med ett enkelt syfte — att göra det lättare att hitta varandra.</p>
+  </div>
+</header>
+
+<main class="content">
+
+  <div class="section">
+    <h2>Hur det började</h2>
+    <p>Det är något med Höör. En känsla av att det händer saker — att det finns folk som bygger, skapar, lagar, odlar och driver verksamheter som man aldrig ens visste om. Grannens granne som snickrar möbler. Företaget på grusvägen som levererar till halva Skåne. Frisörsalongen som har stått i trettio år.</p>
+    <p>Men de syns inte alltid. Inte på Google, inte på sociala medier, inte utanför bygden. Och det är synd — för de är ryggraden i det här samhället.</p>
+    <p>Den här sidan kom till ur en enkel frustration: det borde finnas ett ställe där man ser alla lokala företag på en gång. Ingen inloggning, inga avgifter, ingen fluff. Bara en lista.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>"En lokal krona som spenderas lokalt <em>stannar</em> i bygden — den spinner runt och bygger något."</p>
+  </div>
+
+  <div class="section">
+    <h2>Vad vi tror på</h2>
+    <div class="values">
+      <div class="value-card">
+        <div class="value-icon">🌱</div>
+        <h3>Lokalt först</h3>
+        <p>Inte för att det alltid är billigast — utan för att det bygger något som håller längre än ett erbjudande.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <h3>Synlighet som rättighet</h3>
+        <p>Alla företag förtjänar att hittas, oavsett om de har en hemsida eller inte.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🔓</div>
+        <h3>Öppet och gratis</h3>
+        <p>Sidan är byggd på offentlig data och kostar ingenting att synas på. Så ska det förbli.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">💚</div>
+        <h3>Ideellt hjärta</h3>
+        <p>Inget kommersiellt syfte. Ingen annonsering. Inga bakomliggande intressen — bara bygden.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <h2>Vem ligger bakom?</h2>
+    <p>Hööretagare är skapad av <a href="https://kravallapa.se" target="_blank">Kravallapa AB</a> — ett litet bolag i Höör som jobbar med kommunikation och teknik. Sidan är byggd på <a href="https://www.bolagsverket.se/tjanster/apier-och-oppna-data/oppna-data" target="_blank">Bolagsverkets öppna data</a> och sorterar automatiskt alla aktiva företag i kommunens postnummerområden.</p>
+    <p>Projektet är gjort på fritiden, med hjälp av AI, helt utan budget. Det är inte perfekt — men det är ett start. Och om det hjälper en enda person att hitta en lokal hantverkare, café eller konsult de annars aldrig hade hittat, så var det värt det.</p>
+    <p>Har du synpunkter, idéer eller vill bidra på något sätt? Hör av dig på <a href="mailto:hanna@kravallapa.se">hanna@kravallapa.se</a>.</p>
+  </div>
+
+  <div class="cta-box">
+    <h2>Hitta ett lokalt företag</h2>
+    <p>1 883 aktiva företag i Höör, Tjörnarp, Hallaröd och Löberöd — sök, filtrera och stöd lokalt.</p>
+    <a href="/" class="btn">Visa alla företag →</a>
+  </div>
+
+</main>
+
+<footer>
+  <strong>Hööretagare</strong> — skapad ideellt av <a href="https://kravallapa.se" target="_blank">Kravallapa AB</a><br>
+  Data från <a href="https://www.bolagsverket.se/tjanster/apier-och-oppna-data/oppna-data" target="_blank">Bolagsverkets öppna data</a>
+</footer>
+
+</body>
+</html>

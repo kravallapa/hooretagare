@@ -21,7 +21,9 @@
   .hero-inner { max-width: 900px; margin: 0 auto; padding: 44px 0 36px; position: relative; display: grid; grid-template-columns: 1fr auto; gap: 24px 48px; align-items: center; }
   .hero-text { grid-column: 1; }
   .hero-right { grid-column: 2; display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
-  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); margin-bottom: 12px; }
+  .eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; }
+  .eyebrow a { color: var(--sage); text-decoration: none; font-size: 11px; letter-spacing: 0.05em; text-transform: none; font-weight: 400; transition: color 0.15s; }
+  .eyebrow a:hover { color: var(--cream); }
   h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: var(--cream); line-height: 1.05; margin-bottom: 12px; }
   h1 em { color: var(--gold); font-style: italic; }
   .hero-sub { font-size: 15px; color: #a8c2ae; max-width: 420px; line-height: 1.6; }
@@ -114,7 +116,7 @@
 <header class="hero">
   <div class="hero-inner">
     <div class="hero-text">
-      <p class="eyebrow">📍 Höörs kommun, Skåne</p>
+      <p class="eyebrow"><span>📍 Höörs kommun, Skåne</span><a href="/om.html">Om Hööretagare →</a></p>
       <h1>Köp <em>lokalt</em><br>stöd varandra</h1>
       <p class="hero-sub">Hitta duktiga företagare i hela Höörs kommun — från Tjörnarp i norr till Bosjökloster i söder.</p>
     </div>
