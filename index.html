@@ -65,9 +65,10 @@
   .chip.loc { background: #fff8ee; color: #9a6220; }
   .chip.web { background: #e3f2fd; color: #1565c0; text-decoration: none; }
   a.chip.web:hover { background: #bbdefb; }
-  .btn-claim { display: block; width: 100%; margin-top: 16px; padding: 9px; border-radius: 8px; border: none; background: #e8f0e9; color: var(--moss); font-size: 15px; cursor: pointer; transition: background 0.15s; line-height: 1; }
-  .btn-claim:hover { background: #d4e8d6; }
-  .btn-claim.claimed { background: #d4e8d6; }
+  .btn-claim { display: flex; align-items: center; gap: 5px; margin-top: 14px; padding: 0; border: none; background: none; color: var(--sage); font-family: 'DM Sans', sans-serif; font-size: 12px; cursor: pointer; transition: color 0.15s; width: fit-content; }
+  .btn-claim svg { width: 13px; height: 13px; stroke: currentColor; flex-shrink: 0; }
+  .btn-claim:hover { color: var(--moss); }
+  .btn-claim.claimed { color: var(--moss); }
   .cat-checks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
   .cat-check-item { display: flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 100px; border: 1.5px solid #ddd6c8; background: var(--warm); cursor: pointer; transition: all 0.15s; font-size: 12px; color: var(--muted); user-select: none; }
   .cat-check-item:has(input:checked) { background: #e8f0e9; border-color: var(--moss); color: var(--moss); font-weight: 500; }
@@ -135,7 +136,7 @@
   <div class="add-section">
     <span style="font-size:16px">🏷️</span>
     <h3>Är du företagare i kommunen?</h3>
-    <p>Klicka på <strong style="color:var(--cream)">🏷️</strong>-symbolen på ditt kort för att lägga till kontaktuppgifter.</p>
+    <p>Klicka på pennan på ditt kort för att lägga till kontaktuppgifter.</p>
   </div>
 
   <div class="filter-row">
@@ -159,7 +160,7 @@
   <br>
   Informationen hämtas från <a href="https://www.bolagsverket.se/tjanster/apier-och-oppna-data/oppna-data" target="_blank">Bolagsverkets öppna data</a> och visar aktiva företag i Höörs kommuns postnummerområden. Sidan är skapad ideellt av <a href="https://kravallapa.se" target="_blank">Kravallapa AB</a> med hjälp av AI — utan kommersiellt syfte, för bygdens skull.<br>
   <br>
-  <span style="opacity:0.6;font-size:11px">Vill ditt företag tas bort? Klicka på 🏷️-symbolen på kortet och välj "Skicka borttagningsförfrågan".</span>
+  <span style="opacity:0.6;font-size:11px">Vill ditt företag tas bort? Klicka på pennan på kortet och välj "Skicka borttagningsförfrågan".</span>
 </footer>
 
 <!-- MODAL -->
@@ -321,7 +322,7 @@ function render() {
           ${webUrl ? `<a href="${esc(webUrl)}" target="_blank" rel="noopener" class="chip web">🌐 ${esc(web)}</a>` : ''}
           ${extraCats.map(ec=>`<span class="chip" style="background:${CAT_INFO[ec]?.bg||'#f5f5f5'}">${CAT_INFO[ec]?.icon||'📌'} ${esc(ec)}</span>`).join('')}
         </div>
-        <button class="btn-claim${claimed?' claimed':''}" data-id="${esc(c.id)}" data-name="${esc(c.name)}" title="${claimed?'Uppdatera info':'Detta är mitt företag'}">${claimed?'✏️':'🏷️'}</button>
+        <button class="btn-claim${claimed?' claimed':''}" data-id="${esc(c.id)}" data-name="${esc(c.name)}"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>${claimed?'Uppdatera info':'Detta är mitt företag'}</button>
       </div>`;
     }).join('');
     sec.innerHTML = `
