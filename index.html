@@ -18,9 +18,9 @@
 
   .hero { background: var(--forest); padding: 0 24px; position: relative; overflow: hidden; }
   .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(104,145,110,0.25) 0%, transparent 70%); pointer-events: none; }
-  .hero-inner { max-width: 900px; margin: 0 auto; padding: 44px 0 36px; position: relative; display: grid; grid-template-columns: 1fr auto; gap: 24px 48px; align-items: center; }
-  .hero-text { grid-column: 1; }
-  .hero-right { grid-column: 2; display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
+  .hero-inner { max-width: 900px; margin: 0 auto; padding: 32px 0 28px; position: relative; display: flex; flex-direction: column; gap: 24px; }
+  .hero-text { }
+  .hero-right { display: flex; flex-direction: column; align-items: stretch; gap: 20px; }
   .topnav { background: var(--forest); padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.07); }
   .topnav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 48px; }
   .nav-logo { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--cream); text-decoration: none; font-weight: 700; letter-spacing: -0.02em; }
@@ -31,7 +31,7 @@
   h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 56px); font-weight: 900; color: var(--cream); line-height: 1.05; margin-bottom: 12px; }
   h1 em { color: var(--gold); font-style: italic; }
   .hero-sub { font-size: 15px; color: #a8c2ae; max-width: 420px; line-height: 1.6; }
-  .search-bar { display: flex; width: 340px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+  .search-bar { display: flex; width: 100%; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
   .search-bar input { flex: 1; padding: 14px 16px; font-family: 'DM Sans', sans-serif; font-size: 14px; border: none; outline: none; background: var(--white); color: var(--text); }
   .search-bar input::placeholder { color: #aaa; }
   .search-bar button { padding: 14px 20px; background: var(--gold); color: var(--white); border: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
@@ -85,15 +85,15 @@
   .btn-remove { background: none; border: none; color: #b94040; font-size: 12px; cursor: pointer; font-family: 'DM Sans', sans-serif; padding: 0; text-decoration: underline; text-underline-offset: 2px; }
   .btn-remove:hover { color: #8b2222; }
 
-  .add-section { background: var(--forest); border-radius: 12px; padding: 14px 22px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
-  .add-section h3 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--cream); white-space: nowrap; }
+  .add-section { background: var(--forest); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .add-section h3 { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--cream); }
   .add-section p { font-size: 13px; color: #a8c2ae; line-height: 1.4; }
   .btn-primary { padding: 14px 28px; background: var(--gold); color: var(--white); border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.2s; white-space: nowrap; flex-shrink: 0; }
   .btn-primary:hover { background: #b07d30; }
 
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,28,0.65); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { display: flex; }
-  .modal { background: var(--white); border-radius: 20px; padding: 36px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+  .modal { background: var(--white); border-radius: 16px; padding: 22px; max-width: 500px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
   .modal h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--forest); margin-bottom: 6px; }
   .modal .sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
   .form-group { margin-bottom: 18px; }
@@ -112,7 +112,8 @@
   footer { background: var(--forest); color: #a8c2ae; text-align: center; padding: 28px 20px; font-size: 13px; line-height: 1.8; }
   footer strong { color: var(--cream); }
   footer a { color: var(--sage); }
-  @media (max-width: 700px) { .hero-inner { grid-template-columns: 1fr; padding: 36px 0 28px; } .hero-right { align-items: stretch; } .search-bar { width: 100%; } .add-section { flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px 18px; } .modal { padding: 24px; } }
+  @media (min-width: 600px) { .add-section { flex-direction: row; align-items: center; gap: 12px; padding: 14px 22px; } .btn-primary { flex-shrink: 0; } .modal { padding: 32px; border-radius: 20px; } }
+  @media (min-width: 700px) { .hero-inner { flex-direction: row; align-items: center; padding: 44px 0 36px; gap: 48px; } .hero-right { align-items: flex-end; flex-shrink: 0; } .search-bar { width: 340px; } .modal { padding: 36px; } }
 </style>
 </head>
 <body>
@@ -171,7 +172,7 @@
   <strong>Företag i Höörs kommun</strong> — en gratis tjänst för bygden<br>
   Höör · Tjörnarp · Hallaröd · Löberöd · Bosjökloster · Gudmuntorp · Munkarp · Norra Rörum<br>
   <br>
-  Informationen hämtas från <a href="https://www.bolagsverket.se/tjanster/apier-och-oppna-data/oppna-data" target="_blank">Bolagsverkets öppna data</a> och visar aktiva företag i Höörs kommuns postnummerområden. Sidan är skapad ideellt av <a href="https://kravallapa.se" target="_blank">Kravallapa AB</a> med hjälp av AI — utan kommersiellt syfte, för bygdens skull.<br>
+  Informationen hämtas från <a href="https://www.bolagsverket.se/tjanster/apier-och-oppna-data/oppna-data" target="_blank">Bolagsverkets öppna data</a> och visar aktiva företag i Höörs kommuns postnummerområden. Sidan är skapad ideellt av <a href="https://kravallapa.se" target="_blank">The Agentic Labs</a>, del av Kravallapa AB, med hjälp av AI — utan kommersiellt syfte, för bygdens skull.<br>
   <br>
   <span style="opacity:0.6;font-size:11px">Vill ditt företag tas bort? Klicka på pennan på kortet och välj "Skicka borttagningsförfrågan".</span>
 </footer>
