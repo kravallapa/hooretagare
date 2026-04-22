@@ -478,6 +478,11 @@ document.getElementById('btnSendOtp').addEventListener('click', async () => {
   btn.disabled = false; btn.textContent = 'Skicka länk →';
   if (error) { errEl.textContent = 'Kunde inte skicka koden. Försök igen.'; errEl.style.display = ''; return; }
   pendingEmail = email;
+  // Spara vilket företag vi redigerar så vi kan återöppna efter redirect
+  const pendingId = document.getElementById('modalId').value;
+  const pendingName = document.getElementById('modalTitle').textContent;
+  localStorage.setItem('pending_edit_id', pendingId);
+  localStorage.setItem('pending_edit_name', pendingName);
   document.getElementById('otpSub').textContent = `Vi skickade en inloggningslänk till ${email}. Klicka på länken i mejlet och kom sedan tillbaka hit.`;
   showStep('otp');
 });
@@ -539,7 +544,25 @@ document.getElementById('searchInput').addEventListener('input', () => {
 document.getElementById('searchBtn').addEventListener('click', render);
 
 buildFilters();
-loadExtras().then(() => render()).catch(e => { console.warn("Supabase:", e); render(); });
+loadExtras().then(async () => {
+  render();
+  // Kolla om användaren precis loggat in via magic link
+  if (!sbReady) return;
+  const { data: { session } } = await sb.auth.getSession();
+  const pendingId = localStorage.getItem('pending_edit_id');
+  const pendingName = localStorage.getItem('pending_edit_name');
+  if (session && pendingId && pendingName) {
+    localStorage.removeItem('pending_edit_id');
+    localStorage.removeItem('pending_edit_name');
+    sessionStorage.setItem('auth_org_id', pendingId);
+    // Hitta kortet och öppna modalen
+    const company = ALL_COMPANIES.find(c => c.id === pendingId);
+    if (company) {
+      // Scrolla till kortet och öppna modalen
+      openModal(pendingId, pendingName);
+    }
+  }
+}).catch(e => { console.warn("Supabase:", e); render(); });
 </script>
 </body>
 </html>
