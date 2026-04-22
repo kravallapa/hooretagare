@@ -1159,7 +1159,7 @@ document.getElementById('searchInput').addEventListener('input', () => {
 document.getElementById('searchBtn').addEventListener('click', render);
 
 buildFilters();
-loadExtras().then(() => render());
+loadExtras().then(() => render()).catch(e => { console.warn("Supabase:", e); render(); });
 </script>
 </body>
 </html>
