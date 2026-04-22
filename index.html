@@ -190,7 +190,7 @@
       <p id="authError" style="color:#c0392b;font-size:13px;margin-top:-8px;margin-bottom:12px;display:none"></p>
       <div class="modal-actions">
         <button class="btn-cancel" id="stepEmailCancel">Avbryt</button>
-        <button class="btn-primary" id="btnSendOtp">Skicka kod →</button>
+        <button class="btn-primary" id="btnSendOtp">Skicka länk →</button>
       </div>
     </div>
 
@@ -475,7 +475,7 @@ document.getElementById('btnSendOtp').addEventListener('click', async () => {
   btn.disabled = true; btn.textContent = 'Skickar…';
   if (!sbReady) { errEl.textContent = 'Tjänsten är inte tillgänglig just nu.'; errEl.style.display = ''; return; }
   const { error } = await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
-  btn.disabled = false; btn.textContent = 'Skicka kod →';
+  btn.disabled = false; btn.textContent = 'Skicka länk →';
   if (error) { errEl.textContent = 'Kunde inte skicka koden. Försök igen.'; errEl.style.display = ''; return; }
   pendingEmail = email;
   document.getElementById('otpSub').textContent = `Vi skickade en inloggningslänk till ${email}. Klicka på länken i mejlet och kom sedan tillbaka hit.`;
