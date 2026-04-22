@@ -248,10 +248,13 @@
 <script>
 const SB_URL = 'https://qcbpoklipjsjejcctstd.supabase.co';
 const SB_KEY = 'sb_publishable_vBEDaN8MUJoEI5FsxzaLsw_aXantvhd';
-const sb = supabase.createClient(SB_URL, SB_KEY);
+let sb;
+try { sb = supabase.createClient(SB_URL, SB_KEY); } catch(e) { console.warn('Supabase init failed:', e); }
+const sbReady = !!sb;
 let EXTRAS_CACHE = {};
 
 async function loadExtras() {
+  if (!sbReady) return;
   const { data } = await sb.from('companies_extra').select('*');
   if (data) {
     data.forEach(row => {
@@ -913,6 +916,7 @@ let activeCat = 'all';
 
 function getExtra(id) { return EXTRAS_CACHE[id] || null; }
 async function saveExtra(id, data) {
+  if (!sbReady) return false;
   const { data: { user } } = await sb.auth.getUser();
   const row = {
     org_id: id,
@@ -1067,13 +1071,13 @@ async function openModal(id, name) {
   document.getElementById('authOtp').value = '';
   document.getElementById('authError').style.display = 'none';
   document.getElementById('otpError').style.display = 'none';
-  const { data: { session } } = await sb.auth.getSession();
+  const session = sbReady ? (await sb.auth.getSession()).data.session : null;
   const lockedId = sessionStorage.getItem('auth_org_id');
   if (session && lockedId === id) {
     populateForm(id);
     showStep('form');
   } else {
-    if (session) await sb.auth.signOut();
+    if (session && sbReady) await sb.auth.signOut();
     showStep('email');
   }
   document.getElementById('modalOverlay').classList.add('open');
@@ -1089,6 +1093,7 @@ document.getElementById('btnSendOtp').addEventListener('click', async () => {
   errEl.style.display = 'none';
   const btn = document.getElementById('btnSendOtp');
   btn.disabled = true; btn.textContent = 'Skickar…';
+  if (!sbReady) { errEl.textContent = 'Tjänsten är inte tillgänglig just nu.'; errEl.style.display = ''; return; }
   const { error } = await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: true } });
   btn.disabled = false; btn.textContent = 'Skicka kod →';
   if (error) { errEl.textContent = 'Kunde inte skicka koden. Försök igen.'; errEl.style.display = ''; return; }
@@ -1105,6 +1110,7 @@ document.getElementById('btnVerifyOtp').addEventListener('click', async () => {
   errEl.style.display = 'none';
   const btn = document.getElementById('btnVerifyOtp');
   btn.disabled = true; btn.textContent = 'Verifierar…';
+  if (!sbReady) return;
   const { error } = await sb.auth.verifyOtp({ email: pendingEmail, token, type: 'email' });
   btn.disabled = false; btn.textContent = 'Verifiera →';
   if (error) { errEl.textContent = 'Fel kod. Kontrollera och försök igen.'; errEl.style.display = ''; return; }
