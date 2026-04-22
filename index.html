@@ -182,7 +182,7 @@
     <!-- Steg 1: E-post -->
     <div id="stepEmail">
       <h3>Verifiera dig</h3>
-      <p class="sub">Ange din e-postadress. Vi skickar en engångskod så att vi vet att du är du.</p>
+      <p class="sub">Ange din e-postadress. Vi skickar en inloggningslänk till din e-post — klicka på den och kom tillbaka hit.</p>
       <div class="form-group">
         <label>E-postadress</label>
         <input type="email" id="authEmail" placeholder="din@email.se" autocomplete="email">
@@ -196,11 +196,11 @@
 
     <!-- Steg 2: OTP -->
     <div id="stepOtp" style="display:none">
-      <h3>Ange koden</h3>
-      <p class="sub" id="otpSub">Vi skickade en 6-siffrig kod till din e-post.</p>
+      <h3>Kontrollera din e-post</h3>
+      <p class="sub" id="otpSub">Vi skickade en länk till din e-post. Klicka på den och kom sedan tillbaka till den här sidan.</p>
       <div class="form-group">
-        <label>Engångskod</label>
-        <input type="text" id="authOtp" placeholder="123456" maxlength="6" inputmode="numeric" autocomplete="one-time-code">
+        <label>Kod från länken (valfritt)</label>
+        <input type="text" id="authOtp" placeholder="6-siffrig kod om du inte kan klicka länken" maxlength="6" inputmode="numeric" autocomplete="one-time-code">
       </div>
       <p id="otpError" style="color:#c0392b;font-size:13px;margin-top:-8px;margin-bottom:12px;display:none"></p>
       <div class="modal-actions">
@@ -478,7 +478,7 @@ document.getElementById('btnSendOtp').addEventListener('click', async () => {
   btn.disabled = false; btn.textContent = 'Skicka kod →';
   if (error) { errEl.textContent = 'Kunde inte skicka koden. Försök igen.'; errEl.style.display = ''; return; }
   pendingEmail = email;
-  document.getElementById('otpSub').textContent = `Vi skickade en 6-siffrig kod till ${email}.`;
+  document.getElementById('otpSub').textContent = `Vi skickade en inloggningslänk till ${email}. Klicka på länken i mejlet och kom sedan tillbaka hit.`;
   showStep('otp');
 });
 
@@ -486,7 +486,7 @@ document.getElementById('btnSendOtp').addEventListener('click', async () => {
 document.getElementById('btnVerifyOtp').addEventListener('click', async () => {
   const token = document.getElementById('authOtp').value.trim();
   const errEl = document.getElementById('otpError');
-  if (token.length < 6) { errEl.textContent = 'Ange den 6-siffriga koden.'; errEl.style.display = ''; return; }
+  if (token.length < 6) { errEl.textContent = 'Ange koden från mejlet.'; errEl.style.display = ''; return; }
   errEl.style.display = 'none';
   const btn = document.getElementById('btnVerifyOtp');
   btn.disabled = true; btn.textContent = 'Verifierar…';
