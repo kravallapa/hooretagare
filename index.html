@@ -890,7 +890,7 @@ const ALL_COMPANIES = [{"id": "556072-2356", "name": "Aktiebolaget Ringsjöfisk"
 {"id": "199109099029", "name": "Olsikowa", "street": "Stanstorp Granstigen 10", "city": "Höör", "postal": "24391", "desc": "Bolaget ska bedriva försäljning av unika konstverk, limiterade smyckekollektioner och heminredningsdetaljer. Bolaget ska också skapa onlineannonser och grafisk design på beställning", "cat": "Handel & Butik", "auto_desc": "Försäljning av unika konstverk, limiterade smyckekollektioner och…", "ef": true},
 {"id": "197902244164", "name": "Lugna Gården - För kropp och själ -", "street": "Lönshult 174", "city": "Löberöd", "postal": "24161", "desc": "Massage- och spa-verksamhet, uthyrning av bed and breakfast", "cat": "Kropp & Hälsa", "auto_desc": "Massage- och spa-, uthyrning av bed and breakfast", "ef": true},
 {"id": "196305064310", "name": "BINDTECH", "street": "Bokeslund, Granallén 4", "city": "Höör", "postal": "24393", "desc": "Köp och försäljning av grafiska maskiner och tillbehör. Förmedling och konsultuppdrag", "cat": "Handel & Butik", "auto_desc": "Köp och försäljning av grafiska maskiner och tillbehör. Förmedling och konsultuppdrag", "ef": true},
-{"id": "198606103912", "name": "Ekströms Mark O Anläggning", "street": "Vätteryd 6079", "city": "Tjörnarp", "postal": "24373", "desc": "Fibergrävning/anläggning", "cat": "Trädgård & Utemiljö", "auto_desc": "Fibergrävning/anläggning", "ef": true};
+{"id": "198606103912", "name": "Ekströms Mark O Anläggning", "street": "Vätteryd 6079", "city": "Tjörnarp", "postal": "24373", "desc": "Fibergrävning/anläggning", "cat": "Trädgård & Utemiljö", "auto_desc": "Fibergrävning/anläggning", "ef": true}];
 
 const CAT_INFO = {
   'Bygg & Hantverk':     { bg:'#fef3e2', icon:'🔨' },
@@ -970,7 +970,7 @@ function render() {
   const filtered = ALL_COMPANIES.filter(c => {
     if(activeCat !== 'all') {
       const extra = getExtra(c.id);
-      const allCats = [...new Set([c.cat, ...(extra?.cats || [])])]];
+      const allCats = [...new Set([c.cat, ...(extra?.cats || [])])];
       if(!allCats.includes(activeCat)) return false;
     }
     if(q && ![c.name,c.city,c.street,c.cat].some(s=>(s||'').toLowerCase().includes(q))) return false;
