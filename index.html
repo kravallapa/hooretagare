@@ -156,10 +156,6 @@
 
   <div class="filter-row">
     <div>
-      <div class="filter-label">Ort i kommunen</div>
-      <div class="pill-strip" id="locStrip"></div>
-    </div>
-    <div>
       <div class="filter-label">Kategori</div>
       <div class="pill-strip" id="catStrip"></div>
     </div>
@@ -909,10 +905,11 @@ const CAT_INFO = {
   'Kreativt & Media':    { bg:'#fdf3e7', icon:'🎨' },
   'Lantbruk & Natur':    { bg:'#e8f5e9', icon:'🌲' },
   'Städ & Rengöring':   { bg:'#e3f2fd', icon:'🧹' },
+  'Konst & Hantverk':   { bg:'#fdf3e7', icon:'🎭' },
   'Övrigt':              { bg:'#f5f5f5', icon:'📌' },
 };
 
-let activeLoc = 'all', activeCat = 'all';
+let activeCat = 'all';
 
 function getExtra(id) { return EXTRAS_CACHE[id] || null; }
 async function saveExtra(id, data) {
@@ -947,21 +944,6 @@ const LOCS = [...new Set(ALL_COMPANIES.map(c => c.city).filter(Boolean))].sort()
 const CATS = [...new Set(ALL_COMPANIES.map(c => c.cat))].sort();
 
 function buildFilters() {
-  const ls = document.getElementById('locStrip');
-  ls.innerHTML = '';
-  [['all','Hela kommunen'],...LOCS.map(l=>[l,l])].forEach(([val,label], i) => {
-    const p = document.createElement('span');
-    p.className = 'pill loc-pill' + (i===0?' active':'');
-    p.textContent = val==='all' ? label : '📍 '+label;
-    p.dataset.loc = val;
-    ls.appendChild(p);
-  });
-  ls.addEventListener('click', e => {
-    const p = e.target.closest('.pill'); if(!p) return;
-    document.querySelectorAll('.loc-pill').forEach(x=>x.classList.remove('active'));
-    p.classList.add('active'); activeLoc = p.dataset.loc; render();
-  });
-
   const cs = document.getElementById('catStrip');
   cs.innerHTML = '';
   [['all','Alla kategorier'],...CATS.map(c=>[c,c])].forEach(([val,label], i) => {
@@ -981,7 +963,6 @@ function buildFilters() {
 function render() {
   const q = document.getElementById('searchInput').value.toLowerCase().trim();
   const filtered = ALL_COMPANIES.filter(c => {
-    if(activeLoc !== 'all' && c.city !== activeLoc) return false;
     if(activeCat !== 'all') {
       const extra = getExtra(c.id);
       const allCats = [...new Set([c.cat, ...(extra?.cats || [])])];
@@ -1087,10 +1068,12 @@ async function openModal(id, name) {
   document.getElementById('authError').style.display = 'none';
   document.getElementById('otpError').style.display = 'none';
   const { data: { session } } = await sb.auth.getSession();
-  if (session) {
+  const lockedId = sessionStorage.getItem('auth_org_id');
+  if (session && lockedId === id) {
     populateForm(id);
     showStep('form');
   } else {
+    if (session) await sb.auth.signOut();
     showStep('email');
   }
   document.getElementById('modalOverlay').classList.add('open');
@@ -1126,6 +1109,7 @@ document.getElementById('btnVerifyOtp').addEventListener('click', async () => {
   btn.disabled = false; btn.textContent = 'Verifiera →';
   if (error) { errEl.textContent = 'Fel kod. Kontrollera och försök igen.'; errEl.style.display = ''; return; }
   const id = document.getElementById('modalId').value;
+  sessionStorage.setItem('auth_org_id', id);
   populateForm(id);
   showStep('form');
 });
